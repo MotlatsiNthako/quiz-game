@@ -1,24 +1,21 @@
 version: 2.1
-
 orbs:
-  node: circleci/node@4.1
-  netlify: circleci/netlify@1.0.1
-
-jobs:
-  build:
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-packages
-
+  node: circleci/node@1.1
 workflows:
-  build-deploy:
+  test-app:
     jobs:
       - build
-      - netlify/deploy-via-git:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - dev
+        
+jobs:
+  
+  build: 
+    docker:
+     - image: cimg/node:14.13.0
+    steps: 
+      - checkout
+      - run:
+          name: install dependencies
+          command: npm install
+      - run:
+          name: run build
+          command: npm run build
