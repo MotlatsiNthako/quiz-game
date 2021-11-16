@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.1
-  heroku: circleci/heroku@1.0.1
+  netlify: circleci/netlify@1.0.1
 
 jobs:
   build:
@@ -15,10 +15,10 @@ workflows:
   build-deploy:
     jobs:
       - build
-      - heroku/deploy-via-git:
+      - netlify/deploy-via-git:
           requires:
             - build
           filters:
             branches:
               only:
-                - master
+                - dev
